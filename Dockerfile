@@ -8,12 +8,12 @@ RUN pip install Flask
 WORKDIR /app
 
 # Copy python's file to work directory
-COPY api_calc.py .
+COPY api_cal.py .
 
 # Use 5000 port
 EXPOSE 5000
 
 # Start program
-CMD ["python", "api_calc.py"]
+CMD ["python", "api_cal.py"]
 
 USER 1000
