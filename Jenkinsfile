@@ -19,8 +19,8 @@ pipeline {
                 }
             }
         }
-  stage('Scan with Trivy') {
-              steps {
+        stage('Scan with Trivy') {
+            steps {
                   sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
                   sh 'mkdir -p reports'
                   sh 'trivy image --ignore-unfixed --format template --template "@html.tpl" -o reports/api_calc-scan.html api_calc:latest'
@@ -38,8 +38,8 @@ pipeline {
                   sh 'trivy image --ignore-unfixed --exit-code 1 --severity CRITICAL api_calc:latest'
               }
           }
-          stage('Scan with Semgrep') {
-              steps {
+       stage('Scan with Semgrep') {
+           steps {
                   sh '''#!/bin/bash
                   python3 -m venv .venv
                   source .venv/bin/activate
@@ -47,9 +47,7 @@ pipeline {
                   semgrep --config=auto --junit-xml -o reports/api_calc-scan.xml api_cal.py
                   deactivate'''
                   junit skipMarkingBuildUnstable: true, testResults: 'reports/api_calc-scan.xml'
-              }
-          }
-      }
-  }
- }
+                }
+             }
+         }
 }
